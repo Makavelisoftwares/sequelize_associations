@@ -14,9 +14,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   posts.init({
-    body: DataTypes.STRING
+    body: {
+      type:DataTypes.STRING
+    },
+    uuid:{
+      type:DataTypes.UUID,
+      defaultValue:DataTypes.UUIDV4
+    }
   }, {
     sequelize,
+    tableName:'posts',
     modelName: 'posts',
   });
   return posts;
