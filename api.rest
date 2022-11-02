@@ -1,0 +1,22 @@
+###
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "username":"omar2",
+    "password":"1234"
+}
+
+###
+GET http://localhost:5000/users
+
+
+
+###
+POST http://localhost:5000/posts
+Content-Type: application/json
+
+{
+    "body":"i am body2",
+    "userid":1
+}

@@ -5,7 +5,7 @@ const morgan=require('morgan');
 const bodyParser=require('body-parser');
 require('dotenv').config();
 const methodOverride=require('method-override');
-const {sequelize}=require('./models')
+const {sequelize,users,posts}=require('./models')
 const port=5000;
 const cookieParser=require('cookie-parser');
 const jwt=require('jsonwebtoken');
@@ -32,3 +32,37 @@ app.use(methodOverride('_method'))
 
 
 
+app.post('/users',async(req,res)=>{
+    const {username,password}=req.body;
+    try {
+        const user=await users.create({username,password});
+        return res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json(error)
+    }
+
+})
+
+app.post('/posts',async(req,res)=>{
+    // const id=req.params.id
+    const {body,userid}=req.body;
+    try {
+        const user=await users.findOne({where:{id:userid}})
+        const post=await posts.create({body,userId:user.id});
+        res.status(200).json(post);
+        
+    } catch (error) {
+        res.status(400).json(error)
+    }
+
+})
+
+
+app.get('/users',async(req,res)=>{
+    try {
+        const user=await users.findAll({include:posts});
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
