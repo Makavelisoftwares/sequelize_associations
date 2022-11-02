@@ -17,6 +17,6 @@ POST http://localhost:5000/posts
 Content-Type: application/json
 
 {
-    "body":"i am body2",
-    "userid":1
+    "body":"i am body3",
+    "userid":2
 }
